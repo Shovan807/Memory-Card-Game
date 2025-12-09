@@ -1,0 +1,241 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+
+/* CSS - attractive heading with animations */
+:root{
+  --accent-1: #ff7a59;
+  --accent-2: #33098e;
+  --accent-3: #7be495;
+  --muted: #0f1724;
+  --glass: rgba(183, 49, 143, 0.06);
+}
+
+/* base */
+.match-title{
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  color: var(--muted);
+  text-align: center;
+  margin: 2rem 0;
+  letter-spacing: -0.02em;
+  display: inline-block;
+  padding: .45rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  box-shadow:
+    0 6px 30px rgba(5, 31, 82, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+  transform-origin: center;
+  animation: titleEntrance 700ms cubic-bezier(.2,.9,.3,1) both;
+  position: relative;
+}
+
+/* animated underline (subtle sweep) */
+.match-title::after{
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -0.45rem;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.04));
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: underlineGrow 900ms 300ms cubic-bezier(.2,.9,.3,1) forwards;
+  opacity: 0.95;
+}
+
+/* highlight word with animated gradient */
+.match-word{
+  display: inline-block;
+  margin-left: .35rem;
+  padding: .15rem .5rem;
+  border-radius: 8px;
+  font-weight: 800;
+  color: transparent;              /* text uses background-clip */
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  position: relative;
+  filter: drop-shadow(0 6px 18px rgba(123,228,149,0.12));
+  animation: gradientShift 3.5s linear infinite, pop 900ms ease both;
+}
+
+/* subtle glowing ring behind the word */
+.match-word::before{
+  content: "";
+  position: absolute;
+  inset: -8%;
+  z-index: -1;
+  border-radius: 10px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,122,89,0.12), transparent 20%),
+              radial-gradient(circle at 70% 70%, rgba(123,228,149,0.08), transparent 36%);
+  opacity: 0;
+  animation: glowPulse 2.6s ease-in-out infinite;
+}
+
+/* KEYFRAMES */
+@keyframes titleEntrance{
+  from { transform: translateY(-18px) scale(.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1);    opacity: 1; }
+}
+
+@keyframes underlineGrow{
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes gradientShift{
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pop{
+  0%   { transform: translateY(6px) scale(.98); opacity: 0; }
+  60%  { transform: translateY(-4px) scale(1.03); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes glowPulse{
+  0%   { opacity: 0.0; transform: scale(.98); }
+  50%  { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.0; transform: scale(.98); }
+}
+
+/* respectful of user motion preferences */
+@media (prefers-reduced-motion: reduce){
+  .match-title,
+  .match-word,
+  .match-title::after,
+  .match-word::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  .match-word { background-size: 100% 100%; }
+}
+
+
+
+
+
+.btn{
+  height: 40px;
+  padding: 0 18px;
+  min-width: 90px;
+
+  border: none;
+  outline: none;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #ff7a59, #ffbb3b);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .5px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(255,150,80,0.4);
+}
+
+/* Hover effect */
+.btn:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255,150,80,0.55);
+}
+
+/* Press/active effect */
+.btn:active{
+  transform: scale(.96);
+  box-shadow: 0 2px 10px rgba(255,150,80,0.3);
+}
+
+/* Optional glowing animation */
+.btn.glow{
+  animation: glowPulse 2.2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 4px 15px rgba(255,150,80,0.45); }
+  50% { box-shadow: 0 4px 25px rgba(255,150,80,0.75); }
+  100% { box-shadow: 0 4px 15px rgba(255,150,80,0.45); }
+}
+
+
+
+
+
+body{
+    background: lightgreen;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding-top: 2rem;
+}
+
+/* CARD GRID */
+#card-section{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+/* CARD BASE (flip container) */
+.card{
+    width: 9rem;
+    height: 9rem;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .5s ease;
+    cursor: pointer;
+}
+
+/* When selected → flip */
+.card-selected{
+    transform: rotateY(180deg);
+}
+
+/* When matched → keep flipped + yellow border */
+.card-match{
+    transform: rotateY(180deg);
+    border: 3px solid yellow;
+}
+
+/* FRONT + BACK common style */
+.front-card,
+.back-div{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: .6rem;
+}
+
+/* FRONT SIDE (visible first) */
+.front-card{
+    background: rgb(153, 139, 51);
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+/* BACK SIDE (emoji image) */
+.back-div{
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(180deg);
+}
