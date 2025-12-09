@@ -1,4 +1,5 @@
 # Memory-Card-Game
+
 The Memory Card Game is a simple and interactive game that tests the player’s memory and concentration skills. The objective of the game is to find and match pairs of identical cards by flipping them over two at a time.
 
 The game starts with all cards placed face down. The player selects two cards per turn:
